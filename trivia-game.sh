@@ -24,7 +24,11 @@ for i in "${!questions[@]}"; do
   echo "${questions[$i]}"
   read answer
 
-  if [[ "$answer" == "${answers[$i]}" ]]; then
+  # convert both to lowercase + remove extra spaces
+  user_answer=$(echo "$answer" | xargs | tr '[:upper:]' '[:lower:]')
+  correct_answer=$(echo "${answers[$i]}" | tr '[:upper:]' '[:lower:]')
+
+  if [[ "$user_answer" == "$correct_answer" ]]; then
     echo "Correct!"
     ((score++))
   else
